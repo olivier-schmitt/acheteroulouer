@@ -1,0 +1,358 @@
+<html>
+<body>
+<form [formGroup]="simulationForm" class="form-horizontal" (submit)="compute()">
+  <h2>Hypothèses de la simulation &nbsp;&nbsp;&nbsp;&nbsp; <input type="submit" value="Calculer" class="btn btn-default"
+                                                                  [disabled]="!simulationForm.valid"/>
+    <input type="button" value="Réinitialiser" class="btn btn-default" (click)="reset()"/></h2>
+  <hr/>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default" formGroupName="commonsControls">
+        <div class="panel-heading">Basiques</div>
+        <div class="panel-body" style="padding: 25px;">
+          <div class="form-group">
+            <label for="duration">Durée simulation (an,1-99)</label>
+            <div>
+              <input id="duration" type="number" step="1"
+                     formControlName="duration"
+                     [(ngModel)]="simulation.duration" class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('commonsControls.duration').errors">
+                <span
+                  *ngIf="simulationForm.get('commonsControls.duration').errors.required">
+                Entrez une duration, svp.
+                </span>
+              </span>
+            </div>
+          </div>
+          <!-- Surface -->
+          <div class="form-group">
+            <label for="surface">Surface (m2,1-999)</label>
+            <div>
+              <input id="surface" type="number" step="1" formControlName="surface" [(ngModel)]="simulation.surface"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('commonsControls.surface').errors"></span>
+            </div>
+          </div>
+          <!-- gasolineConsumptionPer100Km -->
+          <div class="form-group">
+            <label for="gasolineConsumptionPer100Km">Conso carburant (l/100km,1-99)</label>
+            <div>
+              <input id="gasolineConsumptionPer100Km" type="number" step="0.1"
+                     formControlName="gasolineConsumptionPer100Km"
+                     [(ngModel)]="simulation.energyHypothesis.gasolineConsumptionPer100Km"
+                     class="form-control"/>
+              <span class="help-block"
+                    *ngIf="simulationForm.get('commonsControls.gasolineConsumptionPer100Km').errors"></span>
+            </div>
+          </div>
+          <!-- savingsReturn -->
+          <div class="form-group">
+            <label for="savingsReturn">Rdt épargne (%,1-999)</label>
+            <div>
+              <input id="savingsReturn" type="number" step="0.1"
+                     formControlName="savingsReturn"
+                     [(ngModel)]="simulation.savingsReturn"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('commonsControls.savingsReturn').errors"></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default" formGroupName="energyControls">
+        <div class="panel-heading">Cadrage énergétique</div>
+        <div class="panel-body" style="padding: 25px;">
+          <div class="form-group">
+            <label for="surface">Prix Kwh (euro,1-999)</label>
+            <div>
+              <input id="kwhPrice" type="number" step="0.01"
+                     formControlName="kwhPrice"
+                     [(ngModel)]="simulation.energyHypothesis.kwhPrice"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('energyControls.kwhPrice').errors"></span>
+            </div>
+          </div>
+          <!-- kwhPriceEvol -->
+          <div class="form-group">
+            <label for="kwhPriceEvol">Prix kwh evol (%,0-100)</label>
+            <div>
+              <input id="kwhPriceEvol" type="number" step="0.01"
+                     formControlName="kwhPriceEvol"
+                     [(ngModel)]="simulation.energyHypothesis.kwhPriceEvol"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('energyControls.kwhPriceEvol').errors">
+
+                                            </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="gasolinePrice">Prix carburant (euro/l,1-99)</label>
+            <div>
+              <input id="gasolinePrice" type="number" step="0.01"
+                     formControlName="gasolinePrice"
+                     [(ngModel)]="simulation.energyHypothesis.gasolinePrice"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('energyControls.gasolinePrice').errors">
+
+                                            </span>
+            </div>
+          </div>
+          <!-- gasolinePriceEvol -->
+          <div class="form-group">
+            <label for="gasolinePriceEvol">Prix carburant évol (%,0-100)</label>
+            <div>
+              <input id="gasolinePriceEvol" type="number" step="0.1"
+                     formControlName="gasolinePriceEvol"
+                     [(ngModel)]="simulation.energyHypothesis.gasolinePriceEvol"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('energyControls.gasolinePriceEvol').errors">
+
+                                            </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default" formGroupName="buyControls">
+        <div class="panel-heading">Achat</div>
+        <div class="panel-body" style="padding: 25px;">
+          <div class="form-group">
+            <label for="squareMeterPrice">Prix/m2 (euro)</label>
+            <div>
+              <input id="squareMeterPrice" type="number" step="0.1" formControlName="squareMeterPrice"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('buyControls.squareMeterPrice').errors">
+                                    </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="buyCost">Coût brut du bien (euro)</label>
+            <div>
+              <input id="buyCost" type="text" readonly formControlName="cost" class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('buyControls.cost').errors">
+                                    </span>
+            </div>
+          </div>
+          <fieldset>
+            <div class="form-group">
+              <label for="loanDuration">Durée du prêt (an)</label>
+              <div>
+                <input id="loanDuration" type="number" step="1" formControlName="loanDuration" class="form-control"/>
+                <span class="help-block" *ngIf="simulationForm.get('buyControls.loanDuration').errors">
+                                        </span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="loanRateWithoutInsurance">Taux d'intérêt brut (%)</label>
+              <div>
+                <input id="loanRateWithoutInsurance" type="number" step="0.01"
+                       formControlName="loanRateWithoutInsurance" class="form-control"
+                />
+                <span class="help-block" *ngIf="simulationForm.get('buyControls.loanRateWithoutInsurance').errors">
+                                        </span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="loanInsuranceRate">Assurance (%)</label>
+              <div>
+                <input id="loanInsuranceRate" type="number" step="0.01" formControlName="loanInsuranceRate"
+                       class="form-control"/>
+                <span class="help-block" *ngIf="simulationForm.get('buyControls.loanInsuranceRate').errors">
+                                        </span>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <label for="bankCaseCost">Frais de dossier (euro)</label>
+              <div>
+                <input id="bankCaseCost" type="number" step="1" formControlName="bankCaseCost" class="form-control"/>
+                <span class="help-block" *ngIf="simulationForm.get('buyControls.bankCaseCost').errors">
+                                        </span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="notaryTaxRate">Frais de mutation (%)</label>
+              <div>
+                <input id="notaryTaxRate" type="number" step="0.1" formControlName="notaryTaxRate"
+                       class="form-control"/>
+                <span class="help-block" *ngIf="simulationForm.get('buyControls.notaryTaxRate').errors">
+                                        </span>
+              </div>
+            </div>
+          </fieldset>
+          <div class="form-group">
+            <label for="agencyTaxRate">Frais d'agence (%)</label>
+            <div>
+              <input id="agencyTaxRate" type="number" step="0.1" formControlName="agencyTaxRate" class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('buyControls.agencyTaxRate').errors">
+                                    </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="loanStarterRatio">Apport personnel (%)</label>
+            <div>
+              <input id="loanStarterRatio" type="number" step="0.1" formControlName="loanStarterRatio"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('buyControls.loanStarterRatio').errors">
+                                    </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="garanteeCost">Garantie (%)</label>
+            <div>
+              <input id="garanteeCost" type="number" step="0.01" formControlName="garanteeCost" class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('buyControls.garanteeCost').errors">
+                                    </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="miscCosts">Frais divers (euro)</label>
+            <div>
+              <input id="miscCosts" type="number" step="1" formControlName="miscCosts" class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('buyControls.miscCosts').errors">
+                                    </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="miscCosts">DPE (Kwh/an/m2)</label>
+            <div>
+              <input id="buydpe" type="number" step="1" formControlName="energyDiagnosis" class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('buyControls.energyDiagnosis').errors">
+                                    </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="miscCosts">Déplacement en voiture (Km/an)</label>
+            <div>
+              <input id="buyImpliedKmsPerYear" type="number" step="10" formControlName="impliedKmsPerYear"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('buyControls.impliedKmsPerYear').errors">
+                                    </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="squareMeterPrice">Evol. Prix (%/an)</label>
+            <div>
+              <input id="buyCostEvolution" type="number" step="0.1" formControlName="costEvolution"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('buyControls.costEvolution').errors">
+                                    </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default" formGroupName="rentControls">
+        <div class="panel-heading">Location</div>
+        <div class="panel-body" style="padding: 25px;">
+          <div class="form-group">
+            <label for="rentSquareMeterPrice">Prix/m2 (euro)</label>
+            <div>
+              <input id="rentSquareMeterPrice" type="number" step="1"
+                     formControlName="squareMeterPrice"
+                     [(ngModel)]="simulation.rentCase.housingUnit.squareMeterPrice"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('rentControls.squareMeterPrice').errors">
+                                    </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="rentCost">Loyer (euro)</label>
+            <div>
+              <input id="rentCost" type="text" readonly
+                     formControlName="cost"
+                     [(ngModel)]="simulation.rentCase.housingUnit.cost"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('rentControls.cost').errors">
+                                    </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="rentAgencyTaxRate">Frais d'agence (euro)</label>
+            <div>
+              <input id="agencyCost" type="number" step="1"
+                     formControlName="agencyCost"
+                     [(ngModel)]="simulation.rentCase.agencyCost"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('rentControls.agencyCost').errors">
+                                    </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="rentAgencyTaxRate">Caution (euro)</label>
+            <div>
+              <input id="garanteeCost" type="number" step="1"
+                     formControlName="garanteeCost"
+                     [(ngModel)]="simulation.rentCase.garanteeCost"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('rentControls.garanteeCost').errors">
+                                    </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="maintenanceCostRatio">Entretien (%/loyer annuel)</label>
+            <div>
+              <input id="maintenanceCostRatio" type="number" step="0.1"
+                     formControlName="maintenanceCostRatio"
+                     [(ngModel)]="simulation.rentCase.housingUnit.maintenanceCostRatio"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('rentControls.maintenanceCostRatio').errors">
+
+                                                </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="miscCosts">Frais divers (euro)</label>
+            <div>
+              <input id="miscCosts" type="number" step="1"
+                     formControlName="miscCosts"
+                     [(ngModel)]="simulation.rentCase.miscCosts"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('rentControls.miscCosts').errors">
+                                    </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="rentdpe">DPE (Kwh/an/m2)</label>
+            <div>
+              <input id="rentdpe" type="number" step="1"
+                     formControlName="energyDiagnosis"
+                     [(ngModel)]="simulation.rentCase.housingUnit.energyDiagnosis"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('rentControls.energyDiagnosis').errors">
+                                    </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="rentimpliedKmsPerYear">Déplacement en voiture (Km/an)</label>
+            <div>
+              <input id="rentimpliedKmsPerYear" type="number" step="10"
+                     formControlName="impliedKmsPerYear"
+                     [(ngModel)]="simulation.rentCase.housingUnit.impliedKmsPerYear"
+                     class="form-control"/>
+              <span class="help-block" *ngIf="simulationForm.get('rentControls.impliedKmsPerYear').errors">
+                                    </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<pre>
+Valid : {{ simulationForm.valid }}
+Touched : {{ simulationForm.touched }}
+Dirty : {{ simulationForm.dirty }}
+Value :
+{{ simulationForm.value | json }}
+</pre>
+</body>
+
+</html>

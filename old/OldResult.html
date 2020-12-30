@@ -1,0 +1,584 @@
+<section data-ng-controller="ResultsCtrl" style="margin:2em;" class="ng-scope">
+        <h3>Cadrage dynamique global <a data-ng-click="toggleGlobal()">[+/-]</a></h3>
+        <section data-ng-show="params.visible">
+        <div class="row">
+        <div class="large-3  columns">
+        <div id="achat-surface" class="row">
+            <div class="large-12 columns">
+                <label>Surface (m2)</label>
+                <input id="achat-surface-out" data-ng-model="params.surface" data-ng-change="refresh()" type="number" min="0" placeholder="Surface" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        </div>
+        <div class="large-3  columns">
+        <div id="j_idt13" class="row">
+            <div class="large-12 columns">
+                <label>Durée simulation (année)</label>
+                <input id="j_idt13-out" data-ng-model="params.duree" data-ng-change="refresh()" type="number" min="0" placeholder="Nombre d'année" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        </div>
+        <div class="large-3  columns">
+        <div id="j_idt20" class="row">
+            <div class="large-12 columns">
+                <label>Rendement épargne ( %/an )</label>
+                <input id="j_idt20-out" data-ng-model="params.eparRendement" data-ng-change="refresh()" type="number" min="0" step="0.01" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        </div>
+        <div class="large-3  columns">
+        </div>
+        </div>
+        <div class="row">
+        <div class="large-3  columns">
+        <div id="j_idt33" class="row">
+            <div class="large-12 columns">
+                <label>Conso. moy. (l/100Km)</label>
+                <input id="j_idt33-out" data-ng-model="params.carburantConso" data-ng-change="refresh()" type="number" min="0" step="0.1" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        </div>
+        <div class="large-3  columns">
+        <div id="j_idt40" class="row">
+            <div class="large-12 columns">
+                <label>Prix carburant ( €/l )</label>
+                <input id="j_idt40-out" data-ng-model="params.carburantPrix" data-ng-change="refresh()" type="number" min="0" step="0.001" placeholder="%" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        </div>
+        <div class="large-3  columns">
+        <div id="j_idt47" class="row">
+            <div class="large-12 columns">
+                <label>Evol. prix carburant (%/an)</label>
+                <input id="j_idt47-out" data-ng-model="params.evolCarburantPrix" data-ng-change="refresh()" type="number" min="0" step="0.01" placeholder="%" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        </div>
+        <div class="large-3  columns">
+        </div>
+        </div>
+        <div class="row">
+        <div class="large-3  columns">
+        <div id="charge-prix-kwh" class="row">
+            <div class="large-12 columns">
+                <label>Prix moyen du Kwh ( € )</label>
+                <input id="charge-prix-kwh-out" data-ng-model="params.prixKwh" data-ng-change="refresh()" type="number" min="0" step="0.01" placeholder="%" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        </div>
+        <div class="large-3  columns">
+        <div id="charge-evol-kwh" class="row">
+            <div class="large-12 columns">
+                <label>Evolution prix du Kwh (%/an)</label>
+                <input id="charge-evol-kwh-out" data-ng-model="params.evolKwhPrix" data-ng-change="refresh()" type="number" min="0" step="0.01" placeholder="%" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        </div>
+        <div class="large-3  columns">
+        </div>
+        </div>
+        </section>
+        <h3>Coûts détaillés et cadrage de l'achat&nbsp;&nbsp;<a data-ng-click="toggleAchat()">[+/-]</a></h3>
+        <section data-ng-show="params.achat.visible">
+        <div class="row">
+                <h5>Evolutions du marché&nbsp;&nbsp;<a data-ng-click="toggleAchatEvols()">[+/-]</a></h5>
+                <section data-ng-show="params.achat.evols">
+        <div class="large-3  columns">
+        <div id="j_idt82" class="row">
+            <div class="large-12 columns">
+                <label>Valorisation du logement (%/an)</label>
+                <input id="j_idt82-out" data-ng-model="params.evolMarche" data-ng-change="refresh()" type="number" min="0" placeholder="Valorisation du bien" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        </div>
+        <div class="large-9  columns">
+                        <p>La valorisation du votre bien immobilier dépend de nombreux facteurs :
+                            certaines zones de France sont attractives tandis que d'autres perdent des habitants.</p>
+                        <p>
+                            Il faut cependant noter que la France connait un cycle haussier depuis 50 ans qui semble marquer le pas :
+                            au delà d'un certain ratio revenu disponible sur capacité d'investissement il devient tout simplement impossible d'acheter un bien.
+                        </p>
+                        <p>Or la puissance publique a épuisé semble-t-il les aides et autres subventions fiscales à la construction, dans un contexte de taux 
+                            intérêts très bas, et une augmentation sensible des dépenses contraines des ménages : carburant, mutuelle, frais de scolarité, électricité, ...</p>
+        </div>
+                </section>
+        </div>
+        <div class="row">
+                <h5>Charges annuelles sur la période&nbsp;&nbsp;<a data-ng-click="toggleAchatCharges()">[+/-]</a></h5>
+                <section data-ng-show="params.achat.chargesVisible">
+        <div class="row">
+        <div class="large-9  columns">
+                            <table id="achat" style="" class="table100">
+                                <thead><tr><th></th><th>Prêt</th><th>Electricité</th><th>Carburant</th><th>Copropriété</th><th>Taxe foncière</th><th>Entretien</th><th>Σ</th></tr></thead>
+                                <tbody><tr><td>1</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 330">3961</td><td title="Coût mensuel : 121">1449</td><td title="Coût mensuel : 236">2832</td><td title="Coût mensuel : 80">961</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 2808">33701</td></tr><tr><td>2</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 337">4040</td><td title="Coût mensuel : 122">1463</td><td title="Coût mensuel : 241">2889</td><td title="Coût mensuel : 82">980</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 2823">33871</td></tr><tr><td>3</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 343">4121</td><td title="Coût mensuel : 123">1478</td><td title="Coût mensuel : 246">2946</td><td title="Coût mensuel : 83">1000</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 2837">34043</td></tr><tr><td>4</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 350">4203</td><td title="Coût mensuel : 124">1493</td><td title="Coût mensuel : 250">3005</td><td title="Coût mensuel : 85">1020</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 2852">34220</td></tr><tr><td>5</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 357">4288</td><td title="Coût mensuel : 126">1508</td><td title="Coût mensuel : 255">3065</td><td title="Coût mensuel : 87">1040</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 2867">34399</td></tr><tr><td>6</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 364">4373</td><td title="Coût mensuel : 127">1523</td><td title="Coût mensuel : 261">3127</td><td title="Coût mensuel : 88">1061</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 2882">34582</td></tr><tr><td>7</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 372">4461</td><td title="Coût mensuel : 128">1538</td><td title="Coût mensuel : 266">3189</td><td title="Coût mensuel : 90">1082</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 2897">34768</td></tr><tr><td>8</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 379">4550</td><td title="Coût mensuel : 130">1554</td><td title="Coût mensuel : 271">3253</td><td title="Coût mensuel : 92">1104</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 2913">34958</td></tr><tr><td>9</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 387">4641</td><td title="Coût mensuel : 131">1569</td><td title="Coût mensuel : 277">3318</td><td title="Coût mensuel : 94">1126</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 2929">35152</td></tr><tr><td>10</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 395">4734</td><td title="Coût mensuel : 132">1585</td><td title="Coût mensuel : 282">3385</td><td title="Coût mensuel : 96">1148</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 2946">35349</td></tr><tr><td>11</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 402">4828</td><td title="Coût mensuel : 133">1601</td><td title="Coût mensuel : 288">3452</td><td title="Coût mensuel : 98">1171</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 2963">35551</td></tr><tr><td>12</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 410">4925</td><td title="Coût mensuel : 135">1617</td><td title="Coût mensuel : 293">3521</td><td title="Coût mensuel : 100">1195</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 2980">35756</td></tr><tr><td>13</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 419">5024</td><td title="Coût mensuel : 136">1633</td><td title="Coût mensuel : 299">3592</td><td title="Coût mensuel : 102">1219</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 2997">35965</td></tr><tr><td>14</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 427">5124</td><td title="Coût mensuel : 137">1649</td><td title="Coût mensuel : 305">3663</td><td title="Coût mensuel : 104">1243</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 3015">36178</td></tr><tr><td>15</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 436">5226</td><td title="Coût mensuel : 139">1666</td><td title="Coût mensuel : 311">3737</td><td title="Coût mensuel : 106">1268</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 3033">36395</td></tr><tr><td>16</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 444">5331</td><td title="Coût mensuel : 140">1682</td><td title="Coût mensuel : 318">3811</td><td title="Coût mensuel : 108">1293</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 3051">36616</td></tr><tr><td>17</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 453">5438</td><td title="Coût mensuel : 142">1699</td><td title="Coût mensuel : 324">3888</td><td title="Coût mensuel : 110">1319</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 3070">36842</td></tr><tr><td>18</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 462">5546</td><td title="Coût mensuel : 143">1716</td><td title="Coût mensuel : 330">3965</td><td title="Coût mensuel : 112">1346</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 3089">37072</td></tr><tr><td>19</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 471">5657</td><td title="Coût mensuel : 144">1733</td><td title="Coût mensuel : 337">4045</td><td title="Coût mensuel : 114">1373</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 3109">37306</td></tr><tr><td>20</td><td title="Coût mensuel : 1775">21300</td><td title="Coût mensuel : 481">5770</td><td title="Coût mensuel : 146">1751</td><td title="Coût mensuel : 344">4126</td><td title="Coût mensuel : 117">1400</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 3129">37545</td></tr><tr><td>21</td><td title="Coût mensuel : 0">0</td><td title="Coût mensuel : 491">5886</td><td title="Coût mensuel : 147">1768</td><td title="Coût mensuel : 351">4208</td><td title="Coût mensuel : 119">1428</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 1374">16488</td></tr><tr><td>22</td><td title="Coût mensuel : 0">0</td><td title="Coût mensuel : 500">6004</td><td title="Coût mensuel : 149">1786</td><td title="Coût mensuel : 358">4292</td><td title="Coût mensuel : 121">1457</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 1395">16736</td></tr><tr><td>23</td><td title="Coût mensuel : 0">0</td><td title="Coût mensuel : 510">6124</td><td title="Coût mensuel : 150">1804</td><td title="Coût mensuel : 365">4378</td><td title="Coût mensuel : 124">1486</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 1416">16989</td></tr><tr><td>24</td><td title="Coût mensuel : 0">0</td><td title="Coût mensuel : 521">6246</td><td title="Coût mensuel : 152">1822</td><td title="Coût mensuel : 372">4466</td><td title="Coût mensuel : 126">1515</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 1437">17247</td></tr><tr><td>25</td><td title="Coût mensuel : 0">0</td><td title="Coût mensuel : 531">6371</td><td title="Coût mensuel : 153">1840</td><td title="Coût mensuel : 380">4555</td><td title="Coût mensuel : 129">1546</td><td title="Coût mensuel : 267">3198</td><td title="Coût mensuel : 1459">17510</td></tr></tbody>
+                                <tfoot><tr><td>Σ</td><td>426000</td><td>126872</td><td>40927</td><td>90708</td><td>30781</td><td>79950</td><td>795239</td></tr></tfoot>
+                            </table>
+        </div>
+        <div class="large-3  columns">
+                            <h5>Cadrage dynamique</h5>
+                            <br>
+        <div id="achat-pm2" class="row">
+            <div class="large-12 columns">
+                <label>Prix au mètre carré ( € )</label>
+                <input id="achat-pm2-out" data-ng-model="params.achat.pm2" data-ng-change="refresh()" type="number" min="0" step="10" placeholder="Prix au m2" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        <div id="achat-pret-duree" class="row">
+            <div class="large-12 columns">
+                <label>Durée du prêt en année</label>
+                <input id="achat-pret-duree-out" data-ng-model="params.achat.pretDuree" data-ng-change="refresh()" type="number" min="0" placeholder="Durée du prêt en année" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        <div id="j_idt110" class="row">
+            <div class="large-12 columns">
+                <label>Coût copropriété ( €/m2/an )</label>
+                <input id="j_idt110-out" data-ng-model="params.achat.syndicSurface" data-ng-change="refresh()" type="number" min="0" step="0.1" placeholder="Prix au m2 par an" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        <div id="j_idt114" class="row">
+            <div class="large-12 columns">
+                <label>Charges copropriété ( %/an )</label>
+                <input id="j_idt114-out" data-ng-model="params.achat.evolSyndic" data-ng-change="refresh()" type="number" min="0" step="0.1" placeholder="%" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        <div id="j_idt118" class="row">
+            <div class="large-12 columns">
+                <label>Entretien ( % valeur du bien/an )</label>
+                <input id="j_idt118-out" data-ng-model="params.achat.entretienMaisonTaux" data-ng-change="refresh()" type="number" min="0" step="0.1" placeholder="% de la valeur du bien" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        <div id="achat-charge-taxe-fonc-a" class="row">
+            <div class="large-12 columns">
+                <label>Taxe foncière ( € )</label>
+                <input id="achat-charge-taxe-fonc-a-out" data-ng-model="params.achat.chargeTaxeFoncA" data-ng-change="refresh()" type="number" min="0" placeholder="Taxe foncière ( € )" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        <div id="j_idt125" class="row">
+            <div class="large-12 columns">
+                <label>Evolution taxe foncière (%)</label>
+                <input id="j_idt125-out" data-ng-model="params.achat.evolTaxeFonc" data-ng-change="refresh()" type="number" min="0" step="0.1" placeholder="%" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        <div id="j_idt129" class="row">
+            <div class="large-12 columns">
+                <label>DPE (Kwh/an/m2))</label>
+                <input id="j_idt129-out" data-ng-model="params.achat.dpe" data-ng-change="refresh()" type="number" min="0" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        <div id="j_idt133" class="row">
+            <div class="large-12 columns">
+                <label>Kilométrage (Km/an)</label>
+                <input id="j_idt133-out" data-ng-model="params.achat.kmAn" data-ng-change="refresh()" type="number" min="0" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        </div>
+        </div>
+                </section>
+        </div>
+        <div class="row">
+                <h5>Epargne&nbsp;&nbsp;<a data-ng-click="toggleAchatEpargne()">[+/-]</a></h5>
+                <section data-ng-show="params.achat.epargneVisible">
+                    <p>
+                        Le tableau d'épargne est construit en utilisant le différentiel entre les coûts de location et les coûts de l'achat.
+                        Les coûts de l'électricité et du carburant sont pris en compte.
+                    </p>
+                    <p>
+                        Le différentiel est recalculé pour toutes les années de la simulation : lorsque le prêt est remboursé 
+                        alors le différentiel d'épargne se renverse normalement au profit de l'achat.
+                    </p>
+                    <p>
+                        Si le différentiel est positif cela signifie que l'option achat est bénéficiaire.
+                    </p>
+                    <p>
+                        Si vous pouvez dépenser plus pour une location c'est donc que vous pouvez épargner ces dépenses dans le cas ou l'achat est moins onéreux.
+                    </p>
+                    <p>L'apport personnel a servi lors de l'acquisition et ne peut donc servir d'amorce à l'épargne.</p>
+                    <p>
+                        Nous considérerons que le bien lui même est une forme d'épargne et doit rentrer en compte dans le calcul du patrimoine.
+                    </p>
+        <div class="row">
+        <div id="j_idt146" class="large-6  columns">
+                            <table id="achat-epargne" class="table100">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Δ Location</th>
+                                        <th>Epargne</th>
+                                        <th>Valorisation du bien</th>
+                                    </tr>
+                                </thead>
+                                <tbody><tr><td>1</td><td>-9020</td><td>0</td><td>326196</td></tr><tr><td>2</td><td>-8904</td><td>0</td><td>332720</td></tr><tr><td>3</td><td>-8786</td><td>0</td><td>339374</td></tr><tr><td>4</td><td>-8669</td><td>0</td><td>346162</td></tr><tr><td>5</td><td>-8550</td><td>0</td><td>353085</td></tr><tr><td>6</td><td>-8432</td><td>0</td><td>360147</td></tr><tr><td>7</td><td>-8313</td><td>0</td><td>367350</td></tr><tr><td>8</td><td>-8194</td><td>0</td><td>374697</td></tr><tr><td>9</td><td>-8074</td><td>0</td><td>382191</td></tr><tr><td>10</td><td>-7954</td><td>0</td><td>389834</td></tr><tr><td>11</td><td>-7835</td><td>0</td><td>397631</td></tr><tr><td>12</td><td>-7715</td><td>0</td><td>405584</td></tr><tr><td>13</td><td>-7594</td><td>0</td><td>413695</td></tr><tr><td>14</td><td>-7473</td><td>0</td><td>421969</td></tr><tr><td>15</td><td>-7352</td><td>0</td><td>430409</td></tr><tr><td>16</td><td>-7230</td><td>0</td><td>439017</td></tr><tr><td>17</td><td>-7109</td><td>0</td><td>447797</td></tr><tr><td>18</td><td>-6987</td><td>0</td><td>456753</td></tr><tr><td>19</td><td>-6865</td><td>0</td><td>465888</td></tr><tr><td>20</td><td>-6743</td><td>0</td><td>475206</td></tr><tr><td>21</td><td>14680</td><td>15267</td><td>484710</td></tr><tr><td>22</td><td>14803</td><td>31273</td><td>494404</td></tr><tr><td>23</td><td>14925</td><td>48046</td><td>504292</td></tr><tr><td>24</td><td>15047</td><td>65617</td><td>514378</td></tr><tr><td>25</td><td>15170</td><td>84018</td><td>524666</td></tr></tbody>
+                                <tfoot><tr><td>Σ</td><td>-83174</td><td>84018</td><td>524666</td></tr></tfoot>
+                            </table>
+        </div>
+        <div id="j_idt150" class="large-6  columns">
+        <p>L'épargne correspond à une somme d'argent que vous économisez tous les ans à la seule fin
+            de vous constituer un capital. 
+        </p>
+        <p>
+            C'est donc une somme dont vous n'avez pas besoin pour vivre.
+        </p>
+        <p>
+            Consultez <a href="http://fr.wikipedia.org/wiki/%C3%89pargne" target="_blank">l'article de Wikipédia</a> pour un complément d'informations.
+        </p>
+                            <p>
+                                Le taux de rendement <u>moyen</u> de l'épargne est très important : il varie de 1,25 % par exemple pour un simple livret A,
+                                à 4 % pour une assurance vie avec capital garanti voir à plus de 10% pour un portefeuille en actions diversifié.
+                            </p>
+                            <p class="ng-binding">
+                                Concernant, la valorisation il s'agit d'appliquer au prix du bien une valorisation annuelle telle que que vous l'avez spécifiée (ici 2 %  par an ).
+                            </p>
+                            <p><b>Attention</b> : un actif immobilier est un actif très particulier</p>
+                            <p>
+                                Un bien immobilier lorsque c'est une résidence principale a une valeur virtuelle qui est celle du marche à un instant t.
+                            </p>
+                            <p>
+                                Cependant, <b>un bien immobilier est un actif non liquide</b> c'est à dire que son équivalent financier est difficilement mobilisable.
+                                Vous disposez de la somme correspondante lorsque vous réalisez la vente.
+                            </p>
+                            <p>
+                                Vous serez cependant imposé (ISF, taxe foncière, taxe d'habitation) sur la valeur supposée de votre bien pendant toute la durée de détention du bien, 
+                                ce qui peut impacter votre niveau de vie.
+                            </p>
+                            <p>
+                                La taxe foncière est par exemple calculé sur la valeur locative qui est une valeur par définition fluctuante en fonction de la tension locative dans votre zone. 
+                            </p>
+                            <p data-ng-show="params.achat.rente" class="ng-binding">Votre épargne donnera une 
+                                rente anuelle de 3361 € soit 280 par mois.
+                            </p>
+        </div>
+        </div>
+                </section>
+        </div>
+        <div class="row">
+                <h5>Bilan financier de l'opération</h5>
+                <p>
+                    La colonne "Dépenses" correspond à la somme de tous les coûts payés sur la période (taxe, prêt, ...).
+                </p>
+                <p>
+                    La colonne "Recettes" correspond à la somme de tous les actifs acquis sur la période (ici l'épargne et le bien immobilier).
+                </p>
+                <br>
+        <div id="j_idt163" class="large-6  columns">
+                    <table id="achat-total" class="table100">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Dépenses  ( € )</th>
+                                <th>Recettes  ( € )</th>
+                            </tr>
+                        </thead>
+                        <tbody><tr><td>Prêt</td><td>426000</td><td></td></tr><tr><td>Electricité</td><td>126872</td><td></td></tr><tr><td>Carburant</td><td>40927</td><td></td></tr><tr><td>Copropriété</td><td>90708</td><td></td></tr><tr><td>Taxe foncière</td><td>30781</td><td></td></tr><tr><td>Entretien</td><td>79950</td><td></td></tr><tr><td>Frais achat</td><td>38984</td><td></td></tr><tr><td>Epargne</td><td></td><td>84018</td></tr><tr><td>Valeur du bien</td><td></td><td>524666</td></tr><tr><td>Restant dû</td><td>0</td><td></td></tr></tbody>
+                        <tfoot><tr><td>Σ</td><td>834222</td><td>608684</td></tr></tfoot>
+                    </table>
+        </div>
+        <div id="j_idt167" class="large-6  columns">
+                    <p>
+                        Les charges sur la durée envisagée de <b class="ng-binding">25 ans</b> est de <b class="ng-binding">834222 €</b>.
+                    </p>
+                    <p>
+                        L'épargne réalisée est de <b class="ng-binding">84018 €</b>.
+                    </p>
+                    <p>
+                        Votre bien vaut désormais <b class="ng-binding">524666 €</b>.
+                    </p>
+                    <p>
+                        Le montant emprunté est <b class="ng-binding">304966 €</b> : le restant dû s'élève à  <b class="ng-binding">0 €</b> (calcul approximatif : le remboursement anticipé d'un emprunt génère des frais supplémentaires).
+                    </p>
+                    <p>
+                        Le bilan de l'opération ,Σ(Dépenses)-Σ(Recettes), s'éleve donc à <b class="ng-binding">-225538 €</b>.
+                    </p>
+        </div>
+        </div>
+
+        </section>
+        <h3>Coûts détaillés  et cadrage de la location&nbsp;&nbsp;<a data-ng-click="toggleLocation()">[+/-]</a></h3>
+        <section data-ng-show="params.location.visible">
+        <div class="row"> 
+                <h5>Charges annuelles sur la période&nbsp;&nbsp;<a data-ng-click="toggleLocationCharges()">[+/-]</a></h5>
+
+                <section data-ng-show="params.location.chargesVisible">
+        <div class="large-9  columns">
+                        <table id="location" style="" class="table100">
+                            <thead><tr><th></th><th>Loyer</th><th>Electricité</th><th>Carburant</th><th>Entretien</th><th>Σ</th></tr></thead>
+                            <tbody><tr><td>1</td><td title="Coût mensuel : 1574">18893</td><td title="Coût mensuel : 330">3961</td><td title="Coût mensuel : 121">1449</td><td title="Coût mensuel : 32">378</td><td title="Coût mensuel : 2057">24681</td></tr><tr><td>2</td><td title="Coût mensuel : 1590">19082</td><td title="Coût mensuel : 337">4040</td><td title="Coût mensuel : 122">1463</td><td title="Coût mensuel : 32">382</td><td title="Coût mensuel : 2081">24967</td></tr><tr><td>3</td><td title="Coût mensuel : 1606">19273</td><td title="Coût mensuel : 343">4121</td><td title="Coût mensuel : 123">1478</td><td title="Coût mensuel : 32">385</td><td title="Coût mensuel : 2105">25257</td></tr><tr><td>4</td><td title="Coût mensuel : 1622">19465</td><td title="Coût mensuel : 350">4203</td><td title="Coût mensuel : 124">1493</td><td title="Coût mensuel : 32">389</td><td title="Coût mensuel : 2129">25551</td></tr><tr><td>5</td><td title="Coût mensuel : 1638">19660</td><td title="Coût mensuel : 357">4288</td><td title="Coût mensuel : 126">1508</td><td title="Coût mensuel : 33">393</td><td title="Coût mensuel : 2154">25849</td></tr><tr><td>6</td><td title="Coût mensuel : 1655">19857</td><td title="Coût mensuel : 364">4373</td><td title="Coût mensuel : 127">1523</td><td title="Coût mensuel : 33">397</td><td title="Coût mensuel : 2179">26150</td></tr><tr><td>7</td><td title="Coût mensuel : 1671">20055</td><td title="Coût mensuel : 372">4461</td><td title="Coût mensuel : 128">1538</td><td title="Coût mensuel : 33">401</td><td title="Coût mensuel : 2205">26455</td></tr><tr><td>8</td><td title="Coût mensuel : 1688">20256</td><td title="Coût mensuel : 379">4550</td><td title="Coût mensuel : 130">1554</td><td title="Coût mensuel : 34">405</td><td title="Coût mensuel : 2230">26764</td></tr><tr><td>9</td><td title="Coût mensuel : 1705">20458</td><td title="Coût mensuel : 387">4641</td><td title="Coût mensuel : 131">1569</td><td title="Coût mensuel : 34">409</td><td title="Coût mensuel : 2257">27078</td></tr><tr><td>10</td><td title="Coût mensuel : 1722">20663</td><td title="Coût mensuel : 395">4734</td><td title="Coût mensuel : 132">1585</td><td title="Coût mensuel : 34">413</td><td title="Coût mensuel : 2283">27395</td></tr><tr><td>11</td><td title="Coût mensuel : 1739">20870</td><td title="Coût mensuel : 402">4828</td><td title="Coût mensuel : 133">1601</td><td title="Coût mensuel : 35">417</td><td title="Coût mensuel : 2310">27716</td></tr><tr><td>12</td><td title="Coût mensuel : 1757">21078</td><td title="Coût mensuel : 410">4925</td><td title="Coût mensuel : 135">1617</td><td title="Coût mensuel : 35">422</td><td title="Coût mensuel : 2337">28041</td></tr><tr><td>13</td><td title="Coût mensuel : 1774">21289</td><td title="Coût mensuel : 419">5024</td><td title="Coût mensuel : 136">1633</td><td title="Coût mensuel : 36">426</td><td title="Coût mensuel : 2364">28371</td></tr><tr><td>14</td><td title="Coût mensuel : 1792">21502</td><td title="Coût mensuel : 427">5124</td><td title="Coût mensuel : 137">1649</td><td title="Coût mensuel : 36">430</td><td title="Coût mensuel : 2392">28705</td></tr><tr><td>15</td><td title="Coût mensuel : 1810">21717</td><td title="Coût mensuel : 436">5226</td><td title="Coût mensuel : 139">1666</td><td title="Coût mensuel : 36">434</td><td title="Coût mensuel : 2420">29043</td></tr><tr><td>16</td><td title="Coût mensuel : 1828">21934</td><td title="Coût mensuel : 444">5331</td><td title="Coût mensuel : 140">1682</td><td title="Coût mensuel : 37">439</td><td title="Coût mensuel : 2449">29386</td></tr><tr><td>17</td><td title="Coût mensuel : 1846">22154</td><td title="Coût mensuel : 453">5438</td><td title="Coût mensuel : 142">1699</td><td title="Coût mensuel : 37">443</td><td title="Coût mensuel : 2478">29733</td></tr><tr><td>18</td><td title="Coût mensuel : 1865">22375</td><td title="Coût mensuel : 462">5546</td><td title="Coût mensuel : 143">1716</td><td title="Coût mensuel : 37">448</td><td title="Coût mensuel : 2507">30085</td></tr><tr><td>19</td><td title="Coût mensuel : 1883">22599</td><td title="Coût mensuel : 471">5657</td><td title="Coût mensuel : 144">1733</td><td title="Coût mensuel : 38">452</td><td title="Coût mensuel : 2537">30441</td></tr><tr><td>20</td><td title="Coût mensuel : 1902">22825</td><td title="Coût mensuel : 481">5770</td><td title="Coût mensuel : 146">1751</td><td title="Coût mensuel : 38">456</td><td title="Coût mensuel : 2567">30802</td></tr><tr><td>21</td><td title="Coût mensuel : 1921">23053</td><td title="Coût mensuel : 491">5886</td><td title="Coût mensuel : 147">1768</td><td title="Coût mensuel : 38">461</td><td title="Coût mensuel : 2597">31168</td></tr><tr><td>22</td><td title="Coût mensuel : 1940">23284</td><td title="Coût mensuel : 500">6004</td><td title="Coût mensuel : 149">1786</td><td title="Coût mensuel : 39">466</td><td title="Coût mensuel : 2628">31539</td></tr><tr><td>23</td><td title="Coût mensuel : 1960">23516</td><td title="Coût mensuel : 510">6124</td><td title="Coût mensuel : 150">1804</td><td title="Coût mensuel : 39">470</td><td title="Coût mensuel : 2660">31914</td></tr><tr><td>24</td><td title="Coût mensuel : 1979">23752</td><td title="Coût mensuel : 521">6246</td><td title="Coût mensuel : 152">1822</td><td title="Coût mensuel : 40">475</td><td title="Coût mensuel : 2691">32294</td></tr><tr><td>25</td><td title="Coût mensuel : 1999">23989</td><td title="Coût mensuel : 531">6371</td><td title="Coût mensuel : 153">1840</td><td title="Coût mensuel : 40">480</td><td title="Coût mensuel : 2723">32680</td></tr></tbody>
+                            <tfoot><tr><td>Σ</td><td>533599</td><td>126872</td><td>40927</td><td>10671</td><td>712065</td></tr></tfoot>
+                        </table>
+        </div>
+        <div class="large-3  columns">
+                        <h5>Cadrage dynamique</h5>
+                        <br>
+        <div id="location-pm2" class="row">
+            <div class="large-12 columns">
+                <label>Prix au mètre carré ( € )</label>
+                <input id="location-pm2-out" data-ng-model="params.location.pm2" data-ng-change="refresh()" type="number" min="0" step="0.05" placeholder="Prix au m2" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        <div id="j_idt188" class="row">
+            <div class="large-12 columns">
+                <label>Augmentation loyer (%/an)</label>
+                <input id="j_idt188-out" data-ng-model="params.evolLoyer" data-ng-change="refresh()" type="number" min="0" step="0.1" placeholder="Augmentation du loyer par an" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        <div id="j_idt192" class="row">
+            <div class="large-12 columns">
+                <label>Entretien (%/loyer annuel)</label>
+                <input id="j_idt192-out" data-ng-model="params.location.entretien" data-ng-change="refresh()" type="number" min="0" step="0.01" placeholder="%" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        <div id="j_idt196" class="row" data-ng-show="params.energie">
+            <div class="large-12 columns">
+                <label>DPE (Kwh/an/m2))</label>
+                <input id="j_idt196-out" data-ng-model="params.location.dpe" data-ng-change="refresh()" type="number" min="0" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        <div id="j_idt200" class="row" data-ng-show="params.energie">
+            <div class="large-12 columns">
+                <label>Kilométrage annuel (Km/an)</label>
+                <input id="j_idt200-out" data-ng-model="params.location.kmAn" data-ng-change="refresh()" type="number" min="0" class="ng-pristine ng-valid ng-valid-number ng-valid-min">
+            </div>
+            
+        </div>
+        </div>
+                </section>
+        </div>
+        <div class="row">
+                <h5>Epargne&nbsp;&nbsp;<a data-ng-click="toggleLocationEpargne()">[+/-]</a></h5>
+                <section data-ng-show="params.location.epargneVisible">
+                    <p>
+                        Le tableau d'épargne est construit en utilisant le montant 
+                        de l'apport personnel plus la capacité d'épargne supplémentaire 
+                        dégagée par le différentiel entre les frais spécifiques 
+                        liés à la propriété (prêt + copropriété + taxe foncière) 
+                        et le loyer.
+                    </p>
+                    <p>
+                        Si le différentiel est positif cela signifie que l'option location est bénéficiaire.
+                    </p>
+                    <p>
+                        Si vous pouvez dépenser plus pour un achat c'est donc que vous pouvez épargner ces dépenses dans le cas ou la location est moins onéreuse.
+                    </p>
+        <div class="row">
+        <div class="large-3  columns">
+                            <table id="location-epargne" class="table100">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Δ Achat</th>
+                                        <th>Epargne  ( € )</th>
+                                    </tr>
+                                </thead>
+                                <tbody><tr><td>1</td><td>9020</td><td>65352</td></tr><tr><td>2</td><td>8904</td><td>77226</td></tr><tr><td>3</td><td>8786</td><td>89452</td></tr><tr><td>4</td><td>8669</td><td>102046</td></tr><tr><td>5</td><td>8550</td><td>115020</td></tr><tr><td>6</td><td>8432</td><td>128390</td></tr><tr><td>7</td><td>8313</td><td>142171</td></tr><tr><td>8</td><td>8194</td><td>156380</td></tr><tr><td>9</td><td>8074</td><td>171032</td></tr><tr><td>10</td><td>7954</td><td>186145</td></tr><tr><td>11</td><td>7835</td><td>201739</td></tr><tr><td>12</td><td>7715</td><td>217833</td></tr><tr><td>13</td><td>7594</td><td>234444</td></tr><tr><td>14</td><td>7473</td><td>251593</td></tr><tr><td>15</td><td>7352</td><td>269303</td></tr><tr><td>16</td><td>7230</td><td>287595</td></tr><tr><td>17</td><td>7109</td><td>306492</td></tr><tr><td>18</td><td>6987</td><td>326018</td></tr><tr><td>19</td><td>6865</td><td>346198</td></tr><tr><td>20</td><td>6743</td><td>367059</td></tr><tr><td>21</td><td>-14680</td><td>381741</td></tr><tr><td>22</td><td>-14803</td><td>397011</td></tr><tr><td>23</td><td>-14925</td><td>412891</td></tr><tr><td>24</td><td>-15047</td><td>429407</td></tr><tr><td>25</td><td>-15170</td><td>446583</td></tr></tbody>
+                                <tfoot><tr><td>Σ</td><td>83174</td><td>446583</td></tr></tfoot>
+                            </table>
+        </div>
+        <div class="large-9  columns">
+                            <p>
+                                L'épargne correspond à une somme d'argent que vous économisez tous les ans à la seule fin
+                                de vous constituer un capital. 
+                            </p>
+                            <p>
+                                C'est donc une somme dont vous n'avez pas besoin pour vivre.
+                            </p>
+                            <p>
+                                Le taux de rendement <u>moyen</u> de l'épargne est très important : il varie de 1,75 % par exemple pour un simple livret,
+                                à 4 % pour une assurance vie avec capital garanti voir à plus de 8% pour un portefeuille (diversifié) en actions.
+                            </p>
+                            <p data-ng-show="params.location.rente" class="ng-binding">Votre épargne donnera une 
+                                rente anuelle de 17863 € soit 1489 € par mois.</p>
+        </div>
+        </div>
+                </section>
+        </div>
+        <div class="row">
+                <h5>Bilan de l'opération</h5>
+                <p>
+                    La colonne "Dépenses" correspond à la somme de tous les coûts de location et des frais payés (agence, ...).
+                </p>
+                <p>
+                    La colonne "Recettes" correspond à la somme de tous les actifs acquis sur la période (ici l'épargne).
+                </p>
+        <div id="j_idt226" class="large-6  columns">
+                    <table id="location-total" class="table100">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Dépenses  ( € )</th>
+                                <th>Recettes  ( € )</th>
+                            </tr>
+                        </thead>
+                        <tbody><tr><td>Loyer</td><td>533599</td><td></td></tr><tr><td>Electricité</td><td>126872</td><td></td></tr><tr><td>Carburant</td><td>40927</td><td></td></tr><tr><td>Entretien</td><td>10671</td><td></td></tr><tr><td>Frais location</td><td>1323</td><td></td></tr><tr><td>Epargne</td><td></td><td>446583</td></tr></tbody>
+                        <tfoot><tr><td>Σ</td><td>713392</td><td>446583</td></tr></tfoot>
+                    </table>
+        </div>
+        <div id="j_idt230" class="large-6  columns">
+                    <p>
+                        Le coût de location sur la durée envisagée de <b class="ng-binding">25 ans</b> est de <b class="ng-binding">713392 €</b>.
+                    </p>
+                    <p>
+                        L'épargne réalisée est de <b class="ng-binding">446583 €</b>.
+                    </p>
+                    <p>
+                        Le bilan de l'opération ,Σ(Recettes) - Σ(Dépenses), s'éleve à <b class="ng-binding">-266809 €</b>.
+                    </p>
+        </div>
+        </div>
+        </section>
+        <h3>Résultats de la simulation</h3>
+        <br>
+        <br>
+        <div class="row">
+            <p data-alert="" class="alert-box success" data-ng-show="params.achat.isBest">
+                Si <u>vous vendez</u> au bout de <b class="ng-binding">25 ans</b>, 
+                l'<b>achat est la meilleure option financière</b> selon vos paramètres et nos calculs.
+                <br>
+                <br>
+        Remarque importante : la valeur du bien est prise en compte dans le calcul comme un actif mais cette valeur est très difficile à prédire au terme de la simulation 
+        car tout dépend de l'état du marché au moment de la vente (pression baissière ou haussière).
+     
+            </p>
+            <p data-alert="" class="alert-box success" data-ng-show="!params.achat.isBest" style="display: none;">
+                Si <u>vous vendez</u> au bout de <b class="ng-binding">25 ans</b>, la <b>location est la meilleure option financière</b> selon vos paramètres et nos calculs.<br>
+                <br>
+        Remarque importante : la valeur du bien est prise en compte dans le calcul comme un actif mais cette valeur est très difficile à prédire au terme de la simulation 
+        car tout dépend de l'état du marché au moment de la vente (pression baissière ou haussière).
+     
+            </p>
+        </div>
+        <div class="row">
+        <div class="large-14  columns">
+                <h4>Tableaux synthétiques des dépenses et recettes <a data-ng-click="toggleSynth()">[+/-]</a></h4>
+                <section data-ng-show="params.synthVisible" style="padding:1em;">
+        <div class="row">
+        <div id="j_idt253" class="large-6  columns">
+                            <h5>Achat</h5>
+                            <section id="synth-achat"><table id="achat-total" class="table100">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Dépenses  ( € )</th>
+                                <th>Recettes  ( € )</th>
+                            </tr>
+                        </thead>
+                        <tbody><tr><td>Prêt</td><td>426000</td><td></td></tr><tr><td>Electricité</td><td>126872</td><td></td></tr><tr><td>Carburant</td><td>40927</td><td></td></tr><tr><td>Copropriété</td><td>90708</td><td></td></tr><tr><td>Taxe foncière</td><td>30781</td><td></td></tr><tr><td>Entretien</td><td>79950</td><td></td></tr><tr><td>Frais achat</td><td>38984</td><td></td></tr><tr><td>Epargne</td><td></td><td>84018</td></tr><tr><td>Valeur du bien</td><td></td><td>524666</td></tr><tr><td>Restant dû</td><td>0</td><td></td></tr></tbody>
+                        <tfoot><tr><td>Σ</td><td>834222</td><td>608684</td></tr></tfoot>
+                    </table></section>
+                            <p>
+                                Σ(Recettes) - Σ(Dépenses) : <b class="ng-binding">-225538 €</b>.
+                            </p>
+                            <p data-ng-show="params.achat.rente" class="ng-binding">Votre épargne donnera une 
+                                rente anuelle de 3361 € soit <b class="ng-binding">280 par mois</b> sur la base d'un placement à 4 %.
+                            </p>
+                            <p><b>Rappel important</b> : la valeur du bien est considéré comme un actif 
+                                mais attention cette valeur est non liquide.<br> 
+                                Tant que vous ne vendez pas, cette somme est immobilisée 
+                                et <u>ne génère aucun revenu</u> contrairement à un actif financier (intérêt d'une assurance vie, d'un PEL, livret A,...). 
+                                <br>
+                                Vous devrez fournir un effort financier constant pour garantir la pérennité et la valeur de ce bien : paiement des taxes et entretien du bien.
+                            </p>
+        </div>
+        <div id="j_idt257" class="large-6  columns">
+                            <h5>Location</h5>
+                            <section id="synth-loca"><table id="location-total" class="table100">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Dépenses  ( € )</th>
+                                <th>Recettes  ( € )</th>
+                            </tr>
+                        </thead>
+                        <tbody><tr><td>Loyer</td><td>533599</td><td></td></tr><tr><td>Electricité</td><td>126872</td><td></td></tr><tr><td>Carburant</td><td>40927</td><td></td></tr><tr><td>Entretien</td><td>10671</td><td></td></tr><tr><td>Frais location</td><td>1323</td><td></td></tr><tr><td>Epargne</td><td></td><td>446583</td></tr></tbody>
+                        <tfoot><tr><td>Σ</td><td>713392</td><td>446583</td></tr></tfoot>
+                    </table></section>
+                            <p>
+                                Σ(Recettes) - Σ(Dépenses) : <b class="ng-binding">-266809 €</b>.
+                            </p>
+                            <p data-ng-show="params.location.rente" class="ng-binding">Votre épargne donnera une 
+                                rente anuelle de 17863 € soit <b class="ng-binding">1489 € par mois</b> sur la base d'un placement à 4 %.</p>
+        </div>
+        </div>
+                </section>
+        </div>
+        </div>
+        <div class="row">
+        <div class="large-14  columns">
+                <h4>Niveaux de vie comparés <a data-ng-click="toggleVie()">[+/-]</a></h4>
+                <section data-ng-show="params.vieVisible" style="padding:1em;">
+        <div class="row">
+        <div id="j_idt272" class="large-6  columns">
+                            <h5>Achat  ( € )</h5>
+                            <table id="nvieachat" class="table100">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Dépenses mensuelles ( € )</th>
+                                        <th>Epargne cumulée ( € )</th>
+                                    </tr>
+                                </thead>
+                                <tbody><tr><td>1</td><td>2808</td><td>0</td></tr><tr><td>2</td><td>2823</td><td>0</td></tr><tr><td>3</td><td>2837</td><td>0</td></tr><tr><td>4</td><td>2852</td><td>0</td></tr><tr><td>5</td><td>2867</td><td>0</td></tr><tr><td>6</td><td>2882</td><td>0</td></tr><tr><td>7</td><td>2897</td><td>0</td></tr><tr><td>8</td><td>2913</td><td>0</td></tr><tr><td>9</td><td>2929</td><td>0</td></tr><tr><td>10</td><td>2946</td><td>0</td></tr><tr><td>11</td><td>2963</td><td>0</td></tr><tr><td>12</td><td>2980</td><td>0</td></tr><tr><td>13</td><td>2997</td><td>0</td></tr><tr><td>14</td><td>3015</td><td>0</td></tr><tr><td>15</td><td>3033</td><td>0</td></tr><tr><td>16</td><td>3051</td><td>0</td></tr><tr><td>17</td><td>3070</td><td>0</td></tr><tr><td>18</td><td>3089</td><td>0</td></tr><tr><td>19</td><td>3109</td><td>0</td></tr><tr><td>20</td><td>3129</td><td>0</td></tr><tr><td>21</td><td>1374</td><td>15267</td></tr><tr><td>22</td><td>1395</td><td>31273</td></tr><tr><td>23</td><td>1416</td><td>48046</td></tr><tr><td>24</td><td>1437</td><td>65617</td></tr><tr><td>25</td><td>1459</td><td>84018</td></tr></tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
+        </div>
+        <div id="j_idt276" class="large-6  columns">
+                            <h5>Location  ( € )</h5>
+                            <table id="nvielocation" class="table100">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Dépenses mensuelles ( € )</th>
+                                        <th>Epargne cumulée ( € )</th>
+                                    </tr>
+                                </thead>
+                                <tbody><tr><td>1</td><td>2057</td><td>65352</td></tr><tr><td>2</td><td>2081</td><td>77226</td></tr><tr><td>3</td><td>2105</td><td>89452</td></tr><tr><td>4</td><td>2129</td><td>102046</td></tr><tr><td>5</td><td>2154</td><td>115020</td></tr><tr><td>6</td><td>2179</td><td>128390</td></tr><tr><td>7</td><td>2205</td><td>142171</td></tr><tr><td>8</td><td>2230</td><td>156380</td></tr><tr><td>9</td><td>2257</td><td>171032</td></tr><tr><td>10</td><td>2283</td><td>186145</td></tr><tr><td>11</td><td>2310</td><td>201739</td></tr><tr><td>12</td><td>2337</td><td>217833</td></tr><tr><td>13</td><td>2364</td><td>234444</td></tr><tr><td>14</td><td>2392</td><td>251593</td></tr><tr><td>15</td><td>2420</td><td>269303</td></tr><tr><td>16</td><td>2449</td><td>287595</td></tr><tr><td>17</td><td>2478</td><td>306492</td></tr><tr><td>18</td><td>2507</td><td>326018</td></tr><tr><td>19</td><td>2537</td><td>346198</td></tr><tr><td>20</td><td>2567</td><td>367059</td></tr><tr><td>21</td><td>2597</td><td>381741</td></tr><tr><td>22</td><td>2628</td><td>397011</td></tr><tr><td>23</td><td>2660</td><td>412891</td></tr><tr><td>24</td><td>2691</td><td>429407</td></tr><tr><td>25</td><td>2723</td><td>446583</td></tr></tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
+        </div>
+        </div>
+                </section>
+        </div>
+        </div>
+        <div class="row">
+        <div class="large-14  columns">
+                <h4>Graphiques <a data-ng-click="toggleGraph()">[+/-]</a></h4>
+                <section data-ng-show="params.graphSectionVisible" style="padding: 1em; display: none;">
+        <div class="row">
+        <div class="large-14  columns">
+                            <div id="graph1" style="width:800px;height:800px;">
+                            </div>
+        </div>
+        </div>
+                    <br><br>
+        <div class="row">
+        <div class="large-14  columns">
+                            <div id="graph2" style="width:800px;height:800px;">
+                            </div>
+        </div>
+        </div>
+                </section>
+        </div>
+        </div>
+        </section>

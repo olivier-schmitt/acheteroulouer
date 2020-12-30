@@ -1,0 +1,108 @@
+<html>
+        <body>
+            <section>
+                <h2>Principe de la simulation</h2><hr/>
+                <p>
+                    L'idée est de considérer, pour une surface équivalente, quel est le meilleur choix financier entre l'achat ou la location de son logement.
+                    Les modalités de calcul pour l'emprunt sont basés sur un taux fixe et un prêt de type classique, c'est à dire pour lequel la mensualité
+                    rembourse du capital et paye des intérêts (voir <a href="http://fr.wikipedia.org/wiki/Mensualit%C3%A9" target="_blank">Wikipédia</a>) .
+                </p>
+                <p>   
+                    La plupart des valeurs ou ratios par défaut sont issues de statistiques diverses fournies par l'INSEE, l'ADEME, l'union des syndicats de l'immobilier, ...
+                    Vous pouvez les modifier pour affiner votre simulation.
+                </p>
+                <br/>
+                <h2>Entretien de votre bien</h2><hr/>
+                <p>
+                    C'est un élément souvent oublié des simulateurs classiques.
+                    Un bien entraîne des frais d'entretien : c'est d'autant plus vrai qu'il s'agit d'une maison individuelle 
+                    car l'ensemble des frais d'entretien sont pris en charge par le propriétaire (espaces verts, toiture, façade, ...).
+                    Dans le cas d'un appartement, certaines dépenses d'entretien relèvent de la copropriété tandis 
+                    que d'autres relèvent du propriétaire (chauffe eau, installation électrique, ...)
+                </p>
+                <p>
+                    Un logement bien entretenu permet de ne pas dévaloriser son bien. 
+                    Les professionnels considèrent que cette dépense annuelle d'entretien correspond à 1% de la valeur du bien en moyenne pour un logement individuel. 
+                </p>
+                <p>    
+                    Un locataire doit aussi effectuer un entretien de son logement mais le périmètre de ces travaux est nettement plus réduit que celui d'un propriétaire.
+                    Le loyer dit charges comprises contient déjà une grande partie de ces charges mais restent les menues réparations ou entretiens périodiques.
+                    Nous considérerons que  ces charges non comprises dans le loyer sont par défaut de l'ordre de 2% du loyer annuel (10 fois moins que pour l'achat, voir  <a href="http://www.insee.fr/fr/insee_regions/nord-pas-de-calais/themes/dossiers_de_profils/DP78_chap2.pdf" target="_blank">cette étude de l'INSEE en région Nord Pas De Calais</a> pour exemple). 
+                </p>
+                <p>    
+                    Cependant dans le cas d'une maison, certains frais d'entretien imputables au locataire peuvent être plus important (ramonage cheminée, ...).
+                    Il s'agit ici d'estimer un coût annuel et lissé dans la durée : dans la réalité il s'agit souvent de coûts non réguliers.
+                    Si le bien n'est pas géré sous le régime de la copropriété alors vous devez indiquer 0 dans le champs <em>Coût copropriété</em> de la section <em>Achat</em>.
+                </p>
+                <br/>
+                <h2>Energie et transport</h2><hr/>
+                <p>
+                    Le prix de l'énergie et la performance énergétique de votre logement influent et influeront considérablement sur votre budget.
+                    Entre un logement BBC (&lt; 50 Kwh/m2/an) et le logement moyen des français (230 Kwh/an/m2) 
+                    la consommation d'électricité pour le chauffage est 4 fois moins importante, 
+                    la facture aussi (500 euros/an contre 2000 euros/an).
+                </p>
+                <p>    
+                    Le nombre de kilomètres parcouru chaque année en automobile dépend pour beaucoup de la distance 
+                    entre son logement et son travail.
+                    Compte tenu là aussi du poste de dépense carburant qui devient de plus en plus important (un alignement diesiel/essence est de plus probable à terme), il nous paru intéressant de
+                    prendre en compte ce paramètre.
+                </p>
+                <br/>
+                <h2>Epargne</h2><hr/>
+                <p>L'épargne correspond à une somme d'argent que vous économisez tous les ans à la seule fin
+                    de vous constituer un capital. 
+                    C'est donc une somme dont vous n'avez pas besoin pour vivre.
+                    Consultez <a href="http://fr.wikipedia.org/wiki/%C3%89pargne" target="_blank">l'article de Wikipédia</a> pour un complément d'informations.
+                </p>
+                <p>
+                    Nous avons aussi considéré que le calcul de l'épargne devait être plus complet que celui que l'on voit couramment. 
+                    En effet, la plupart des simulateurs considèrent que l'épargne se limite à l'apport personnel placé. 
+                    Ceci est juste mais incomplet dans la mesure ou de nos jours un loyer est souvent inférieur à une mensualité à moins 
+                    d'allonger la durée de l'emprunt ce qui a d'autres conséquences. 
+                </p>
+                <p>
+                    De plus un locataire ne paie pas de taxe foncière, ni de frais de copropriétés, ce qui 
+                    constitue une capacité d'épargne supplémentaire indéniable.
+                    Le différentiel d'épargne pour la location est calculé en tenant compte de toutes les charges fixes : taxe foncière, frais de copropriété, transport, DPE.
+                </p>
+                <p>    
+                    Cependant, le contraire peut être vrai les dépenses annuelles en tant que propriétaire peuvent être moins élevée qu'un loyer annuel.
+                    Le montant de l'épargne obtenu sur la durée de la simulation est calculé en réinvestissant les intérêts obtenus 
+                    selon le principe des intérêts composés. Le rythme de capitalisation des intérêts est annuel. 
+                </p>
+                <br/>
+                <h2>Rente d'épargne</h2><hr/>
+                <p>
+                    A la fin de la durée de la simulation, vous diposez ou non d'une épargne.
+                    La rente de l'épargne est calculée en considérant la somme totale obtenue puis en calculant les intérêts générés chaque année.
+                    Ces intérêts ne sont plus alors capitalisés mais sont reversables sous la forme d'une rente annuelle ou mensuelle (principe des assurances vies, PEA de plus de 8 ans, ...).
+                    Votre capital ne progresse plus dans ce cas là.
+                </p>
+                <br/>
+                
+                <h2>Valorisation de votre bien</h2><hr/>
+                <p>
+                    Votre bien est un actif de votre patrimoine.
+                    La valeur du bien est estimée année après année en appliquant le taux de valorisation annuel de votre bien.
+                    La valeur par défaut est de 1% mais nous vous encourageons à moduler ce taux notamment si le bien se trouve dans une zone déjà très chère.
+                </p>
+                <p>
+                    Il ne faut pas oublier que dans certaines zones, les prix ont atteint des sommets jamais connus dans l'histoire récente : il est 
+                    peu crédible que la valeur de votre bien augmente de 25 ou 30%, notamment dans un contexte de modération salariale qui perdure depuis des années, 
+                    et ne semble pas devoir se terminer pour de nombreuses raisons (part des dépenses sociales dans les salaires en constante augmentation).
+                </p>
+                <p>
+                    D'autres facteurs risquent d'ailleurs de perturber le marché dans les années qui viennent, notamment l'augmentation 
+                    importante du prix de l'énergie et/ou les différentiels de dépenses énergétiques entre les normes de construction.
+                    Les récents progrès dans les réglementations thermiques (BBC par exemple) montrent qu'il est déjà possible de consommer 
+                    jusqu'à 4 fois moins que la moyenne française alors que les coûts de construction de ces logements baissent d'année en année.
+                </p>
+                <p>
+                    Les logements énergivores subiront probablement une décôte sensible sur la durée notamment à cause des ruptures technologiques 
+                    en cours dans la construction (les constructions passives seront obligatoires à partir de 2020).
+                </p>
+                <br/>
+            </section>    
+        </body>
+</html>

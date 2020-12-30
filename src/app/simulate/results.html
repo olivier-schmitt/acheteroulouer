@@ -1,0 +1,501 @@
+<html>
+<body>
+<form [formGroup]="resultForm" class="form-horizontal">
+  <div class="row">
+    <h2>R&eacute;sultats de la simulation</h2>
+    <hr/>
+    <br/>
+    <h3>Cadrage dynamique global</h3>
+    <hr/>
+  </div>
+  <div class="row" formGroupName="commonsControls">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="duration">Durée simulation (an,1-99)</label>
+        <div>
+          <input id="duration" type="number" step="1"
+                 formControlName="duration"
+                 [(ngModel)]="simulation.duration"
+                 class="form-control"/>
+          <span class="help-block" *ngIf="resultForm.get('commonsControls.duration').errors">
+            <span *ngIf="resultForm.get('commonsControls.duration').errors.required">
+            Entrez une duration, svp.
+            </span>
+          </span>
+        </div>
+      </div>
+      <!-- Surface -->
+      <div class="form-group">
+        <label for="surface">Surface (m2,1-999)</label>
+        <div>
+          <input id="surface" type="number" step="1"
+                 formControlName="surface"
+                 [(ngModel)]="simulation.surface"
+                 class="form-control"/>
+          <span class="help-block" *ngIf="resultForm.get('commonsControls.surface').errors"></span>
+        </div>
+      </div>
+      <!-- savingsReturn -->
+      <div class="form-group">
+        <label for="savingsReturn">Rdt épargne (%,1-999)</label>
+        <div>
+          <input id="savingsReturn" type="number" step="0.1"
+                 formControlName="savingsReturn"
+                 [(ngModel)]="simulation.savingsReturn"
+                 class="form-control"/>
+          <span class="help-block" *ngIf="resultForm.get('commonsControls.savingsReturn').errors"></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="kwhPrice">Prix Kwh (euro,1-999)</label>
+        <div>
+          <input id="kwhPrice" type="number" step="0.01"
+                 formControlName="kwhPrice"
+                 [(ngModel)]="simulation.energyHypothesis.kwhPrice"
+                 class="form-control"/>
+          <span class="help-block" *ngIf="resultForm.get('commonsControls.kwhPrice').errors"></span>
+        </div>
+      </div>
+      <!-- kwhPriceEvol -->
+      <div class="form-group">
+        <label for="kwhPriceEvol">Prix kwh evol (%,0-100)</label>
+        <div>
+          <input id="kwhPriceEvol" type="number" step="0.01"
+                 formControlName="kwhPriceEvol"
+                 [(ngModel)]="simulation.energyHypothesis.kwhPriceEvol"
+                 class="form-control"/>
+          <span class="help-block" *ngIf="resultForm.get('commonsControls.kwhPriceEvol').errors"></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+      <!-- gasolineConsumptionPer100Km -->
+      <div class="form-group">
+        <label for="gasolineConsumptionPer100Km">Conso carburant (l/100km,1-99)</label>
+        <div>
+          <input id="gasolineConsumptionPer100Km" type="number" step="0.1"
+                 formControlName="gasolineConsumptionPer100Km"
+                 [(ngModel)]="simulation.energyHypothesis.gasolineConsumptionPer100Km"
+                 class="form-control"/>
+          <span class="help-block" *ngIf="resultForm.get('commonsControls.gasolineConsumptionPer100Km').errors"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="gasolinePrice">Prix carburant (euro/l,1-99)</label>
+        <div>
+          <input id="gasolinePrice" type="number" step="0.01"
+                 formControlName="gasolinePrice"
+                 [(ngModel)]="simulation.energyHypothesis.gasolinePrice"
+                 class="form-control"/>
+          <span class="help-block" *ngIf="resultForm.get('commonsControls.gasolinePrice').errors"></span>
+        </div>
+      </div>
+      <!-- gasolinePriceEvol -->
+      <div class="form-group">
+        <label for="gasolinePriceEvol">Prix carburant évol (%,0-100)</label>
+        <div>
+          <input id="gasolinePriceEvol" type="number" step="0.1"
+                 formControlName="gasolinePriceEvol"
+                 [(ngModel)]="simulation.energyHypothesis.gasolinePriceEvol"
+                 class="form-control"/>
+          <span class="help-block" *ngIf="resultForm.get('commonsControls.gasolinePriceEvol').errors"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/><br/>
+  <div class="row">
+    <h3>La location</h3>
+    <hr/>
+  </div>
+  <div class="row" formGroupName="rentControls">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="kilometerPerYear">Kilométrage annuel (Km/an)</label>
+        <div>
+          <input id="kilometerPerYear" type="number" step="1"
+                 formControlName="kilometerPerYear"
+                 [(ngModel)]="simulation.rentCase.housingUnit.impliedKmsPerYear"
+                 class="form-control"/>
+          <span class="help-block" *ngIf="resultForm.get('rentControls.kilometerPerYear').errors">
+            <span *ngIf="resultForm.get('rentControls.kilometerPerYear').errors.required">
+            Entrez une duration, svp.
+            </span>
+          </span>
+        </div>
+      </div>
+      <!-- Prix -->
+      <div class="form-group">
+        <label for="squareMeterPrice">Prix au mètre carré ( € )</label>
+        <div>
+          <input id="squareMeterPrice" type="number" step="0.1"
+                 formControlName="squareMeterPrice"
+                 [(ngModel)]="simulation.rentCase.housingUnit.squareMeterPrice"
+                 class="form-control"/>
+          <span class="help-block" *ngIf="resultForm.get('rentControls.squareMeterPrice').errors"></span>
+        </div>
+      </div>
+      <!-- gasolineConsumptionPer100Km -->
+      <div class="form-group">
+        <label for="rentCostEvolution">Augmentation loyer (%/an)</label>
+        <div>
+          <input id="rentCostEvolution" type="number" step="0.1"
+                 formControlName="costEvolution"
+                 [(ngModel)]="simulation.rentCase.housingUnit.costEvolution"
+                 class="form-control"
+          />
+          <span class="help-block" *ngIf="resultForm.get('rentControls.costEvolution').errors"></span>
+        </div>
+      </div>
+      <!-- savingsReturn -->
+      <div class="form-group">
+        <label for="maintenanceCostRatio">Entretien (%/loyer annuel)</label>
+        <div>
+          <input id="maintenanceCostRatio" type="number" step="0.1"
+                 formControlName="maintenanceCostRatio"
+                 [(ngModel)]="simulation.rentCase.housingUnit.maintenanceCostRatio"
+                 class="form-control"/>
+          <span class="help-block" *ngIf="resultForm.get('rentControls.maintenanceCostRatio').errors"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="energyDiagnosis">DPE (Kwh/an/m2))</label>
+        <div>
+          <input id="energyDiagnosis" type="number" step="1"
+                 formControlName="energyDiagnosis"
+                 [(ngModel)]="simulation.rentCase.housingUnit.energyDiagnosis"
+                 class="form-control"/>
+          <span class="help-block" *ngIf="resultForm.get('rentControls.energyDiagnosis').errors"></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <table id="location" class="table">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Loyer</th>
+          <th>Electricité</th>
+          <th>Carburant</th>
+          <th>Entretien</th>
+          <th>Σ</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of rentResults.overallCostsData;let i = index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{data[0]}}</td>
+          <td>{{data[1]}}</td>
+          <td>{{data[2]}}</td>
+          <td>{{data[3]}}</td>
+          <td>{{data[4]}}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <th scope="row">Σ</th>
+          <th scope="row">{{rentResults.rentPerYearSerie.sum}}</th>
+          <th scope="row">{{rentResults.elecPerYearSerie.sum}}</th>
+          <th scope="row">{{rentResults.gasolinePerYearSerie.sum}}</th>
+          <th scope="row">{{rentResults.maintenanceSerie.sum}}</th>
+          <th scope="row">{{rentResults.totalCostPerYearSerie.sum}}</th>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h4>Epargne</h4>
+      <br/>
+      <p>
+        Le tableau d'épargne est construit en utilisant le montant
+        de l'apport personnel plus la capacité d'épargne supplémentaire
+        dégagée par le différentiel entre les frais spécifiques
+        liés à la propriété (prêt + copropriété + taxe foncière)
+        et le loyer.
+      </p>
+      <p>
+        Si le différentiel est positif cela signifie que l'option location est bénéficiaire.
+      </p>
+      <p>
+        Si vous pouvez dépenser plus pour un achat c'est donc que vous pouvez épargner ces dépenses dans le cas ou la
+        location est moins onéreuse.
+      </p>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-md-4">
+      <table id="location-epargne" class="table">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Δ Achat</th>
+          <th>Epargne ( € )</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>1</td>
+          <td>9020</td>
+          <td>65352</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td>Σ</td>
+          <td>83174</td>
+          <td>446583</td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="col-md-8">
+      <p>
+        L'épargne correspond à une somme d'argent que vous économisez tous les ans à la seule fin
+        de vous constituer un capital.
+      </p>
+      <p>
+        C'est donc une somme dont vous n'avez pas besoin pour vivre.
+      </p>
+      <p>
+        Le taux de rendement <u>moyen</u> de l'épargne est très important : il varie de 1,75 % par exemple pour un
+        simple livret,
+        à 4 % pour une assurance vie avec capital garanti voir à plus de 8% pour un portefeuille (diversifié) en
+        actions.
+      </p>
+      <p>Votre épargne donnera une
+        rente anuelle de 17863 € soit 1489 € par mois.</p>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h4>Bilan de la location</h4>
+      <br/>
+      <p>
+        La colonne "Dépenses" correspond à la somme de tous les coûts de location et des frais payés (agence, ...).
+      </p>
+      <p>
+        La colonne "Recettes" correspond à la somme de tous les actifs acquis sur la période (ici l'épargne).
+      </p>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-md-6">
+      <table id="location-total" class="table">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Dépenses ( € )</th>
+          <th>Recettes ( € )</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">Loyer</th>
+          <td>533599</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">Electricité</th>
+          <td>126872</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">Carburant</th>
+          <td>40927</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">Entretien</th>
+          <td>10671</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">Frais location</th>
+          <td>1323</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">Epargne</th>
+          <td></td>
+          <td>446583</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <th scope="row">Σ</th>
+          <td>713392</td>
+          <td>446583</td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="col-md-6">
+      <p>
+        Le coût de location sur la durée envisagée de <b>25 ans</b> est de <b>713392 €</b>.
+      </p>
+      <p>
+        L'épargne réalisée est de <b>446583 €</b>.
+      </p>
+      <p>
+        Le bilan de l'opération ,Σ(Recettes) - Σ(Dépenses), s'éleve à <b>-266809 €</b>.
+      </p>
+    </div>
+  </div>
+  <br/><br/>
+  <div class="row">
+    <h3>L'achat</h3>
+    <hr/>
+    <h4>Cadrage de l'achat</h4>
+  </div>
+  <div class="row" formGroupName="buyControls">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="kilometerPerYear">Kilométrage annuel (Km/an)</label>
+        <div>
+          <input id="kilometerPerYear" type="number" step="1"
+                 formControlName="kilometerPerYear"
+                 [(ngModel)]="simulation.buyCase.housingUnit.impliedKmsPerYear"
+                 class="form-control"/>
+          <span class="help-block" *ngIf="resultForm.get('buyControls.kilometerPerYear').errors">
+                                        <span *ngIf="resultForm.get('buyControls.kilometerPerYear').errors.required">
+                                        Entrez une duration, svp.
+                                        </span>
+                        </span>
+        </div>
+      </div>
+      <!-- Prix -->
+      <div class="form-group">
+        <label for="squareMeterPrice">Prix au mètre carré ( € )</label>
+        <div>
+          <input id="squareMeterPrice" type="number" step="0.1"
+                 formControlName="squareMeterPrice"
+                 [(ngModel)]="simulation.buyCase.housingUnit.squareMeterPrice"
+                 class="form-control"/>
+          <span class="help-block" *ngIf="resultForm.get('buyControls.squareMeterPrice').errors">
+
+                                        </span>
+        </div>
+      </div>
+      <!-- gasolineConsumptionPer100Km -->
+      <div class="form-group">
+        <label for="buyCostEvolution">Evolution prix (%/an)</label>
+        <div>
+          <input id="buyCostEvolution" type="number" step="0.1"
+                 formControlName="costEvolution"
+                 [(ngModel)]="simulation.buyCase.housingUnit.costEvolution"
+                 class="form-control"
+          />
+          <span class="help-block" *ngIf="resultForm.get('buyControls.costEvolution').errors">
+
+                                        </span>
+        </div>
+      </div>
+      <!-- savingsReturn -->
+      <div class="form-group">
+        <label for="maintenanceCostRatio">Entretien (%/coût annuel)</label>
+        <div>
+          <input id="maintenanceCostRatio" type="number" step="0.1"
+                 formControlName="maintenanceCostRatio"
+                 [(ngModel)]="simulation.buyCase.housingUnit.maintenanceCostRatio"
+                 class="form-control"/>
+          <span class="help-block" *ngIf="resultForm.get('buyControls.maintenanceCostRatio').errors">
+
+                                        </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="energyDiagnosis">DPE (Kwh/an/m2))</label>
+        <div>
+          <input id="energyDiagnosis" type="number" step="1"
+                 formControlName="energyDiagnosis"
+                 [(ngModel)]="simulation.buyCase.housingUnit.energyDiagnosis"
+                 class="form-control"/>
+          <span class="help-block" *ngIf="resultForm.get('buyControls.energyDiagnosis').errors">
+                            </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <table id="location" class="table">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Prêt annuel</th>
+          <th>Taxe foncière</th>
+          <th>Copropriété</th>
+          <th>Electricité</th>
+          <th>Carburant</th>
+          <th>Entretien</th>
+          <th>Σ</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of buyResults.overallCostsData;let i = index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{data[0]}}</td>
+          <td>{{data[1]}}</td>
+          <td>{{data[2]}}</td>
+          <td>{{data[3]}}</td>
+          <td>{{data[4]}}</td>
+          <td>{{data[5]}}</td>
+          <td>{{data[6]}}</td>
+
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <th scope="row">Σ</th>
+          <th scope="row">{{buyResults.buyPerYearSerie.sum}}</th>
+          <th scope="row">{{buyResults.landTaxPerYearSerie.sum}}</th>
+          <th scope="row">{{buyResults.councilTaxPerYearSerie.sum}}</th>
+          <th scope="row">{{buyResults.elecPerYearSerie.sum}}</th>
+          <th scope="row">{{buyResults.gasolinePerYearSerie.sum}}</th>
+          <th scope="row">{{buyResults.maintenanceSerie.sum}}</th>
+          <th scope="row">{{buyResults.totalCostPerYearSerie.sum}}</th>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h4>Epargne</h4>
+      <br/>
+      <p>
+        Le tableau d'épargne est construit en utilisant le montant
+        de l'apport personnel plus la capacité d'épargne supplémentaire
+        dégagée par le différentiel entre les frais spécifiques
+        liés à la propriété (prêt + copropriété + taxe foncière)
+        et le loyer.
+      </p>
+      <p>
+        Si le différentiel est positif cela signifie que l'option location est bénéficiaire.
+      </p>
+      <p>
+        Si vous pouvez dépenser plus pour un achat c'est donc que vous pouvez épargner ces dépenses dans le cas ou la
+        location est moins onéreuse.
+      </p>
+    </div>
+  </div>
+  <br/>
+  <br/><br/>
+  <div class="row">
+    <h3>Résultats de la simulation</h3>
+    <hr/>
+    <h4>Tableaux synthétiques des dépenses et recettes</h4>
+
+    <h4>Niveaux de vie comparés</h4>
+  </div>
+</form>
+</body>
+</html>
